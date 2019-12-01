@@ -1,0 +1,63 @@
+﻿@model IEnumerable<IdentityRole>
+@{
+    ViewData["Title"] = "ListRoles";
+}
+
+<h1>List of all roles</h1>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Role Name
+                </th>
+                <th> Role Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var role in Model)
+            {
+                <tr>
+                    <td>
+                        @role.Name
+                    </td>
+                    <td>
+                        @role.Id
+                    </td>
+                    <td>
+                        <!-- <a asp-action="EditRole" asp-controller="Administration" asp-route-id="@role.Id">Edit Role</a> <br />
+                             <a asp-action="DeleteRole" asp-controller="Administration" asp-route-id="@role.Id">Delete Role</a> -->
+                        <a asp-action="EditRole" asp-controller="Administration" asp-route-id="@role.Id" class="btn btn-light">Edit</a> <br />
+                        <form asp-action="DeleteRole" asp-controller="Administration" asp-route-id="@role.Id" method="post">
+                            <span id="confirmDeleteSpan_@role.Id" style="display:none">
+                                <span>Are you sure you want to delete?</span>
+                                <button type="submit" class="btn btn-danger">Yes</button>
+                                <a href="#" class="btn btn-primary"
+                                   onclick="confirmDelete('@role.Id', false)">No</a>
+                            </span>
+
+                            <span id="deleteSpan_@role.Id">
+                                <a href="#" class="btn btn-danger"
+                                   onclick="confirmDelete('@role.Id', true)">Delete</a>
+                            </span>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-primary" asp-controller="administration" asp-action="CreateRole"> Add another role </a>
+}
+else
+{
+    <h5> No roles created yet.</h5>
+}
+
+
+@section Scripts {
+    <script src="~/js/customScript.js"></script>
+}

@@ -1,0 +1,67 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+@model IEnumerable<FF.Data.Entities.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Orders</h1>
+
+@if (TempData["OrderCreated"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        A new order has been submitted successfully.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<p>
+    @if (signInManager.IsSignedIn(User))
+    {
+        <a asp-action="Create">Create New</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Date of order
+            </th>
+            <th>
+                Invoice number
+            </th>
+            <th>
+                Client Company
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvoiceNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.Name)
+                </td>
+
+                <td>
+                    @if (signInManager.IsSignedIn(User) && User.IsAdmin())
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

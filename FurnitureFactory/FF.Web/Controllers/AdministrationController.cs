@@ -14,7 +14,9 @@ namespace FF.Web.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public AdministrationController(
+            RoleManager<IdentityRole> roleManager, 
+            UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Threading.Tasks;
 using FF.Data.Entities;
 using FF.Services.Contracts;
 using FF.Web.Models;
 using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FF.Web.Controllers
 {
@@ -17,7 +17,10 @@ namespace FF.Web.Controllers
         private readonly IProductService _productService;
         private readonly IClientService _clientService;
 
-        public OrdersController(IOrderService orderService, IProductService productService, IClientService clientService)
+        public OrdersController(
+            IOrderService orderService, 
+            IProductService productService, 
+            IClientService clientService)
         {
             _orderService = orderService;
             _productService = productService;
@@ -31,7 +34,6 @@ namespace FF.Web.Controllers
             return View(orders);
         }
 
-        // details
         public async Task<IActionResult> Details(int id)
         {
             var orderExists = await _orderService.Exists(id);
@@ -100,7 +102,6 @@ namespace FF.Web.Controllers
             return View(model);
         }
 
-        // edit 
         [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -147,7 +148,6 @@ namespace FF.Web.Controllers
             return View(model);
         }
 
-        // delete
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -202,18 +202,5 @@ namespace FF.Web.Controllers
 
             return result;
         }
-
-        
-        /* private IEnumerable<SelectListItem> GetProductList()
-            => _productService
-                .GetProducts()
-                .Select(p => new SelectListItem(p.Name, p.Id.ToString()))
-                .ToList(); 
-
-        private IEnumerable<SelectListItem> GetClientList()
-            => _clientService
-                .GetClients()
-                .Select(p => new SelectListItem(p.Name, p.Id.ToString()))
-                .ToList();*/
     }
 }

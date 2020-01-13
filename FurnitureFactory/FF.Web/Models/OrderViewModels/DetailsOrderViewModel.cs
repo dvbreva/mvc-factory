@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FF.Data.Entities;
+﻿using FF.Data.Entities;
 
-namespace FF.Web.Models
+namespace FF.Web.Models.OrderViewModels
 {
     public class DetailsOrderViewModel : CreateOrderViewModel
     {

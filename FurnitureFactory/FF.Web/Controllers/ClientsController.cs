@@ -22,8 +22,7 @@ namespace FF.Web.Controllers
 
             return View(clients);
         }
-
-        // details 
+ 
         public async Task<IActionResult> Details(int id)
         {
             var clientExists = await _clientService.Exists(id);
@@ -38,7 +37,6 @@ namespace FF.Web.Controllers
             return View(client);
         }
 
-        
         public IActionResult Create()
         {
             return View();
@@ -65,7 +63,6 @@ namespace FF.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        // edit
         public async Task<IActionResult> Edit(int id)
         {
             var client = await _clientService.GetById(id);
@@ -102,7 +99,6 @@ namespace FF.Web.Controllers
             return RedirectToAction("Details", new { id });
         }
 
-        // delete 
         public async Task<IActionResult> Delete(int id)
         {
             var clientExists = await _clientService.Exists(id);

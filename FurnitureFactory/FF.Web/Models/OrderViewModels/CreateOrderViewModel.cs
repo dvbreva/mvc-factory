@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace FF.Web.Models
+namespace FF.Web.Models.CategoryViewModels
 {
     public class CreateOrderViewModel
     {

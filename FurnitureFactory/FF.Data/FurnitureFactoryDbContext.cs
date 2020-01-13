@@ -113,6 +113,7 @@ namespace FF.Models
             foreach (var item in entries)
             {
                 var auditable = item.Entity as Auditable;
+
                 if (auditable == null)
                 {
                     continue;

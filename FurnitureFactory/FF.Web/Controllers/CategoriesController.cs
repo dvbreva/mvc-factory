@@ -17,7 +17,9 @@ namespace FF.Web.Controllers
         private readonly ICategoryService _categoryService;
         private readonly ILogger<CategoriesController> _logger;
 
-        public CategoriesController(ICategoryService categoryService, ILogger<CategoriesController> logger)
+        public CategoriesController(
+            ICategoryService categoryService, 
+            ILogger<CategoriesController> logger)
         {
             _categoryService = categoryService;
             _logger = logger;
@@ -30,7 +32,6 @@ namespace FF.Web.Controllers
             return View(categories);
         }
 
-        // details 
         public async Task<IActionResult> Details(int id)
         {
             var categoryExists = await _categoryService.Exists(id);
@@ -45,7 +46,6 @@ namespace FF.Web.Controllers
             return View(category);
         }
 
-        // adding a new one 
         public IActionResult Create()
         {
             return View();
@@ -74,7 +74,6 @@ namespace FF.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // edit
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _categoryService.GetById(id);
@@ -122,7 +121,6 @@ namespace FF.Web.Controllers
             return RedirectToAction("Details", new { id });
         }
 
-        // delete 
         public async Task<IActionResult> Delete(int id)
         {
             var categoryExists = await _categoryService.Exists(id);

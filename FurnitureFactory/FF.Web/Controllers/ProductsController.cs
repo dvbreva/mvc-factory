@@ -13,7 +13,9 @@ namespace FF.Web.Controllers
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
 
-        public ProductsController(IProductService productService, ICategoryService categoryService)
+        public ProductsController(
+            IProductService productService, 
+            ICategoryService categoryService)
         {
             _productService = productService;
             _categoryService = categoryService;
@@ -73,7 +75,6 @@ namespace FF.Web.Controllers
             return RedirectToAction("Index","Products");
         }
 
-        // edit
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -126,7 +127,6 @@ namespace FF.Web.Controllers
             return RedirectToAction("Details", new { id });
         }
 
-        // delete
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {

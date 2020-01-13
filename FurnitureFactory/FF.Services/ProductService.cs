@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FF.Data;
 using FF.Data.Entities;
 using FF.Models;
 using FF.Models.Repositories;
@@ -24,14 +23,15 @@ namespace FF.Services
         {
             return await _productRepository
                 .GetAll()
-                .Include(c => c.Category).ToListAsync();
+                .Include(c => c.Category)
+                .ToListAsync();
         }
 
         public async Task<Product> GetById(int id)
         {
             if (id < 1)
             {
-                return await Task.FromResult<Product>(null);
+                //TODO: return service error of not found
             }
 
             return await _productRepository
@@ -42,7 +42,7 @@ namespace FF.Services
 
         public async Task<ServiceResult> Insert(Product product)
         {
-            if(product == null)
+            if (product == null)
             {
                 throw new ArgumentNullException(nameof(product));
             }

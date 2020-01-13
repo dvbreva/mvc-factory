@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FF.Data;
@@ -20,24 +21,34 @@ namespace FF.Services
 
         public async Task<IEnumerable<Category>> GetCategories()
         {
-            return await _categoryRepository.GetAll().ToListAsync();
+            return await _categoryRepository
+                .GetAll()
+                .ToListAsync();
         }
 
         public async Task<Category> GetById(int id)
         {
             if (id < 1)
             {
-                await Task.FromResult<Category>(null);
+                //TODO: return service error of not found
             }
 
-            return await _categoryRepository.GetAll().Include(c => c.Products)
-                                      .Where(c => c.Id == id)
-                                      .FirstOrDefaultAsync();
+            return await _categoryRepository
+                .GetAll()
+                .Include(c => c.Products)
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<ServiceResult> Insert(Category category)
         {
+            if (category == null)
+            {
+                throw new ArgumentNullException(nameof(category));
+            }
+
             _categoryRepository.Add(category);
+
             await _categoryRepository.Save();
 
             return new ServiceResult();
@@ -65,6 +76,7 @@ namespace FF.Services
             if (categoryToDelete != null)
             {
                 _categoryRepository.Delete(categoryToDelete);
+
                 await _categoryRepository.Save();
             }
 

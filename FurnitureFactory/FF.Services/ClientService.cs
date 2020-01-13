@@ -20,14 +20,16 @@ namespace FF.Services
 
         public async Task<IEnumerable<Client>> GetClients()
         {
-            return await _clientRepository.GetAll().ToListAsync();
+            return await _clientRepository
+                .GetAll()
+                .ToListAsync();
         }
 
         public async Task<Client> GetById(int id)
         {
             if (id < 1)
             {
-                return null;
+                //TODO: return service error of not found
             }
 
             return await _clientRepository.GetById(id);
@@ -35,9 +37,9 @@ namespace FF.Services
 
         public async Task<ServiceResult> Insert(Client client)
         {
-            if(client == null)
+            if (client == null)
             {
-                await Task.FromResult<ServiceResult>(null);
+                throw new ArgumentNullException(nameof(client));
             }
 
             _clientRepository.Add(client);

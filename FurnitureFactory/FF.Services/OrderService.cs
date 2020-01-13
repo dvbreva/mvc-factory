@@ -25,16 +25,18 @@ namespace FF.Services
 
         public async Task<IEnumerable<Order>> GetOrders()
         {
-            return await _orderRepository.GetAll()
+            return await _orderRepository
+                .GetAll()
                 .Include(c => c.Client)
-                .Include(p => p.OrderedProducts).ToListAsync();
+                .Include(p => p.OrderedProducts)
+                .ToListAsync();
         }
 
         public async Task<Order> GetById(int id)
         {
             if (id < 1)
             {
-                return await Task.FromResult<Order>(null);
+                //TODO: return service error of not found
             }
 
             return await _orderRepository.GetAll()
